@@ -11,9 +11,9 @@ __all__ = [
     'OnlineNNRuLSIF', 
     'ChangePointDetectionClassifier', 
     'ChangePointDetectionClassifierABS',
-    'ChangePointDetectionRuLSIF'
+    'ChangePointDetectionRuLSIF',
     'ClassificationNetwork', 
-    'NNClassifier'
+    'NNClassifier',
     'GBDTRuLSIFRegressor', 
     'RegressionNetwork', 
     'NNRuLSIFRegressor'
