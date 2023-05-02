@@ -3,7 +3,7 @@ from .cpdc import ChangePointDetectionClassifier, ChangePointDetectionRuLSIF
 from .cpdc_abs import ChangePointDetectionClassifierABS
 from .cpdc_ebs import ChangePointDetectionClassifierEBS
 from .cpdc_cv import ChangePointDetectionClassifierCV
-from .matrix import MatrixUnionPairImportance, MatrixExcludePairImportance
+from .matrix import MatrixScore
 from .enrg_dist import EnergyDistanceCalculator
 from .models import GBDTRuLSIFRegressor
 from .models import RegressionNetwork, NNRuLSIFRegressor
@@ -18,8 +18,7 @@ __all__ = [
     'ChangePointDetectionClassifierEBS',
     'ChangePointDetectionClassifierCV', 
     'EnergyDistanceCalculator',
-    'MatrixUnionPairImportance',
-    'MatrixExcludePairImportance',
+    'MatrixScore',
     'ChangePointDetectionRuLSIF',
     'ClassificationNetwork', 
     'NNClassifier',

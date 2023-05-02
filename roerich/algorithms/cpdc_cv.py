@@ -2,19 +2,16 @@ from abc import ABCMeta, abstractmethod
 import numpy as np
 import pandas as pd
 from sklearn.metrics import roc_curve, roc_auc_score
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import StratifiedKFold, KFold, train_test_split
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 from copy import deepcopy
 from joblib import Parallel, delayed
 from scipy import interpolate
 from scipy.signal import argrelmax
 
-from .cpdc import ChangePointDetectionBase
+from .cpdc import ChangePointDetectionBase, KL, KL_sym, JSD, PE, PE_sym
 
-from sklearn.model_selection import StratifiedKFold, KFold
-
-
-# Classification
+# CV Classification
 class ChangePointDetectionClassifierCV(ChangePointDetectionBase):
     
     def __init__(self, base_classifier=QuadraticDiscriminantAnalysis(), metric="KL_sym", 
@@ -22,7 +19,6 @@ class ChangePointDetectionClassifierCV(ChangePointDetectionBase):
 
         """
         Change point detection algorithm based on binary classififcation with cross validation.
-
         Parameters:
         -----------
         base_classifier: object
@@ -39,7 +35,7 @@ class ChangePointDetectionClassifierCV(ChangePointDetectionBase):
         n_runs: int
             Number of times, the binary classifier runs on each pair of test and reference windows.
         n_splits: int
-            Number of splits for cross validation.
+            Number of splits for cross validation
         """
 
         super().__init__(periods, window_size, step, n_runs)
@@ -56,14 +52,12 @@ class ChangePointDetectionClassifierCV(ChangePointDetectionBase):
     def reference_test_predict(self, X_ref, X_test):
         """
         Estimate change point detection score for a pair of test and reference windows.
-
         Parameters:
         -----------
         X_ref: numpy.ndarray
             Matrix of reference observations.
         X_test: numpy.ndarray
             Matrix of test observations.
-
         Retunrs:
         --------
         score: float
